@@ -1,9 +1,9 @@
 #! /usr/bin/env node
 import inquirer from "inquirer";
 
-import chalk from "chalk"
+import chalk from "chalk";
 
-console.log(chalk.blue.underline(`\t"Welcome To Cli ATM!"\n`));
+console.log(chalk.blue.underline(`\n\t"Welcome To Cli ATM!"\n`));
 
 let myBalance = 50000 ; //Dollars
 
@@ -12,7 +12,7 @@ let pinCode = 9876 ;
 const pinAnswer = await inquirer.prompt ([
     {
     name : "mypin",
-    message : "Enter your pin code",
+    message : chalk.yellow.bold("Enter your pin code"),
     type : "number"
     }
 ])
@@ -23,7 +23,7 @@ if (pinAnswer.mypin === pinCode)
 let operationAns = await inquirer.prompt ([
     {
         name : "operations" ,
-        message : "what you want to do??",
+        message :chalk.yellow.bold("what you want to do??"),
         type : "list",
         choices : ["withdraw Cash", "checking Balance", "Fast Cash"]
     }
@@ -34,7 +34,7 @@ if(operationAns.operations == "withdraw Cash"){
 let amountAns = await inquirer.prompt([
     {
         name : "amount",
-        message : "Enter amount for withdraw cash",
+        message : chalk.yellow.bold("Enter amount for withdraw cash"),
         type : "number"
     }
 ]);
@@ -42,7 +42,7 @@ let amountAns = await inquirer.prompt([
 
     if (amountAns.amount <= myBalance) {
         myBalance -= amountAns.amount;
-        console.log(chalk.yellowBright.bold(`Your remaining balance is $${myBalance}`));
+        console.log(chalk.green.underline(`Your remaining balance is $${myBalance}`));
         
     }
     else {
@@ -60,13 +60,13 @@ else if (operationAns.operations == "Fast Cash"){
   let fastCash = await inquirer.prompt([
   {
    name : "fastCashAmount",
-   message : "select amount",
+   message : chalk.red.bold("select amount"),
    type : "list",
    choices : [5000, 8000, 10000,15000,20000,25000]
   }
   ]);
     myBalance-=fastCash.fastCashAmount;
-    console.log(chalk.magenta.bold("transaction successfully done"));
+    console.log(chalk.magenta.bold(`"transaction successfully done"`));
     console.log(chalk.yellowBright.underline(`Your Remaining Balance Is: $${myBalance}`));
     
   
