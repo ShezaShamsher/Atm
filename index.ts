@@ -1,15 +1,13 @@
 #! /usr/bin/env node
 import inquirer from "inquirer";
-console.log(`\t"Welcome To Cli ATM!"\n`);
 
+import chalk from "chalk"
+
+console.log(chalk.blue.underline(`\t"Welcome To Cli ATM!"\n`));
 
 let myBalance = 50000 ; //Dollars
 
-// console.log(`Your current balance is $${myBalance}`);
-
 let pinCode = 9876 ;
-
-console.log(`Your pin code is ${pinCode}`);
 
 const pinAnswer = await inquirer.prompt ([
     {
@@ -18,9 +16,10 @@ const pinAnswer = await inquirer.prompt ([
     type : "number"
     }
 ])
-if (pinAnswer.mypin === pinCode) {
-    console.log("correct pin code!!");
-
+if (pinAnswer.mypin === pinCode)
+ {
+    console.log(chalk.blueBright.bold("correct pin code!!"));
+ 
 let operationAns = await inquirer.prompt ([
     {
         name : "operations" ,
@@ -43,17 +42,17 @@ let amountAns = await inquirer.prompt([
 
     if (amountAns.amount <= myBalance) {
         myBalance -= amountAns.amount;
-        console.log(`Your remaining balance is $${myBalance}`);
+        console.log(chalk.yellowBright.bold(`Your remaining balance is $${myBalance}`));
         
     }
     else {
-        console.log("Your balance is insufficient");
+        console.log(chalk.red.underline("Your balance is insufficient"));
         
     }
 }
 
 else if (operationAns.operations == "checking Balance") {
-    console.log(`Your current balance is $${myBalance} `);
+    console.log(chalk.white.bgBlue.bold(`Your current balance is $${myBalance} `));
 
 }
 else if (operationAns.operations == "Fast Cash"){
@@ -67,13 +66,13 @@ else if (operationAns.operations == "Fast Cash"){
   }
   ]);
     myBalance-=fastCash.fastCashAmount;
-    console.log("transaction successfully done");
-    console.log(`Your Remaining Balance Is: $${myBalance}`);
+    console.log(chalk.magenta.bold("transaction successfully done"));
+    console.log(chalk.yellowBright.underline(`Your Remaining Balance Is: $${myBalance}`));
     
   
 }
 }
 else {
-    console.log("Incorrect pin code");
+    console.log(chalk.red.bold("Error!! Your pin code is incorrect"));
     
 }
